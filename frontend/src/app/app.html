@@ -1,0 +1,211 @@
+
+<div class="container">
+    <h1>{{ title }}</h1>
+
+    <p>Количество документов: {{ documents().length }}</p>
+
+    <div class="card">
+        <h2>Список документов</h2>
+
+            <table class="data-table">
+                <tr>
+                    <th>ID</th>
+                    <th>Номер</th>
+                    <th>Дата</th>
+                    <th>Сумма</th>
+                    <th>Примечание</th>
+                    <th>Действия</th>
+                </tr>
+
+                @for (document of documents(); track document.id){
+                    <tr>
+                        <td>{{document.id}}</td>
+                        <td>{{document.number}}</td>
+                        <td>{{document.date}}</td>
+                        <td>{{document.total}}</td>
+                        <td>{{document.note}}</td>
+                        <td>
+                            <button class="btn btn-open" (click) = "openDocument(document.id)">Открыть</button>
+                            <button class="btn btn-edit" (click) = "startEditDocument(document)">Изменить</button>
+                            <button class="btn btn-delete" (click) = "removeDocumentById(document.id)">Удалить</button>
+                        </td>
+                    </tr>
+                }
+            </table>
+    </div>
+
+@if (!isCreatingDocument()) {
+    <button class="btn btn-create" (click) = "toCreateDocument()">
+        Создать документ
+    </button>
+}
+<p></p>
+
+<div class="forms-row">
+    @if (isCreatingDocument()) {
+        <div class="card form-card">
+            <h2>Создание документа</h2>
+
+            <div class="form-group">
+                <label>Номер документа:</label>
+                <input class="form-input" type="number" [(ngModel)] = "newNumber">
+            </div>
+            
+            <div class="form-group">
+                <label>Дата:</label>
+                <input class="form-input" type="date" [(ngModel)] = "newDate">
+            </div>
+
+            <div class="form-group">
+                <label>Примечание:</label>
+                <input class="form-input" type="text" [(ngModel)] = "newNote">
+            </div>
+            
+            <p>Номер: {{newNumber}}</p>
+            <p>Дата: {{newDate}}</p>
+            <p>Примечание: {{newNote}}</p>
+
+            <button class="btn btn-create" (click) = "createDocument()" [disabled]="isLoading()">
+                {{ isLoading() ? 'Создание...' : 'Создать документ' }}
+            </button>
+
+            <button class="btn btn-cancel" (click) = "cancelCreateDocument()" [disabled] = "isLoading()">
+                Отмена
+            </button>
+        </div>
+    }
+
+    @if (editingMasterId() !== null) {
+        <div class="card form-card">
+            <h2>{{'Редактирование документа №'  + editingDocument()?.number}}</h2>
+
+            <div class="form-group">
+                <label>Номер документа:</label>
+                <input class="form-input" type="number" [(ngModel)] = "editNumber">
+            </div>
+            
+            <div class="form-group">
+                <label>Дата:</label>
+                <input class="form-input" type="date" [(ngModel)] = "editDate">
+            </div>
+
+            <div class="form-group">
+                <label>Примечание:</label>
+                <input class="form-input" type="text" [(ngModel)] = "editNote">
+            </div>
+            
+            <p>Номер: {{editNumber}}</p>
+            <p>Дата: {{editDate}}</p>
+            <p>Примечание: {{editNote}}</p>
+
+            <button class="btn btn-save" (click) = "saveEditDocument()" [disabled]="isLoading()">
+                {{ isLoading() ? 'Сохранение...' : 'Сохранить изменения' }}
+            </button>
+
+            <button class="btn btn-cancel" (click) = "cancelEditDocument()" [disabled]="isLoading()">
+                Отмена
+            </button>
+        </div>
+    }
+</div>
+
+@if (selectedMasterId() !== null) {
+    <div class="card">
+        <h2>Документ № {{ selectedDocument()?.number }}</h2>
+
+        @if (details().length === 0) {
+            <p>У документа нет спецификаций</p>
+        }
+        @else {
+            <table class="data-table">
+                <tr>
+                    <th>ID</th>
+                    <th>Название</th>
+                    <th>Сумма</th>
+                    <th>Действия</th>
+                </tr>
+
+                @for (detail of details(); track detail.id){
+                    <tr>
+                        <td>{{detail.id}}</td>
+                        <td>{{detail.name}}</td>
+                        <td>{{detail.totalDet}}</td>
+                        <td>
+                            <button class="btn btn-edit" (click) = "startEditDetail(detail)">Изменить</button>
+                            <button class="btn btn-delete" (click) = "removeDetailById(detail.id)">Удалить</button>
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+    </div>
+    
+    <p></p>
+    @if (!isCreatingDetail()){
+        <button class="btn btn-create" (click) = "toCreateDetail()">
+            Создать спецификацию
+        </button>
+    }
+}
+<div class="forms-row">
+    @if (isCreatingDetail()) {
+        <div class="card form-card">
+            <h2>Создание спецификации</h2>
+
+            <div class="form-group">
+                <label>Название спецификации:</label>
+                <input class="form-input" type="text" [(ngModel)] = "newName">
+            </div>
+
+            <div class="form-group">
+                <label>Сумма:</label>
+                <input class="form-input" type="number" [(ngModel)] = "newTotal">
+            </div>
+
+            <p>Название: {{newName}}</p>
+            <p>Сумма: {{newTotal}}</p>
+
+                <button class="btn btn-create" (click) = "createDetail()" [disabled]="isLoading()">
+                {{ isLoading() ? 'Создание...' : 'Создать спецификацию' }}
+            </button>
+
+            <button class="btn btn-cancel" (click) = "cancelCreateDetail()" [disabled]="isLoading()">
+                Отмена
+            </button>
+        </div>
+    }
+
+    @if (editingDetailId() !== null) {
+        <div class="card form-card">
+            <h2>{{'Редактирование спецификации: ' + editingDetail()?.name}}</h2>
+
+            <div class="form-group">
+                <label>Название спецификации:</label>
+                <input class="form-input" type="text" [(ngModel)] = "editName">
+            </div>
+
+            <div class="form-group">
+                <label>Сумма:</label>
+                <input class="form-input" type="number" [(ngModel)] = "editTotal">
+            </div>
+
+            <p>Название: {{editName}}</p>
+            <p>Сумма: {{editTotal}}</p>
+
+            <button class="btn btn-save" (click) = "saveEditDetail()" [disabled]="isLoading()">
+                {{ isLoading() ? 'Сохранение...' : 'Сохранить изменения' }}
+            </button>
+
+            <button class="btn btn-cancel" (click) = "cancelEditDetail()" [disabled]="isLoading()">
+                Отмена
+            </button>
+        </div>
+    }
+</div>
+
+@if (errorMessage()) {
+        <p style="color: red">{{errorMessage()}}</p>
+}
+
+</div>
+<router-outlet />

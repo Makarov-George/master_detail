@@ -1,0 +1,154 @@
+:host {
+    display: block;
+    min-height: 100vh;
+    background: #f4f7fb;
+    color: #263238;
+}
+
+h1 {
+    color: #253858;
+    margin-bottom: 8px;
+}
+
+h2 {
+    color: #344563;
+    margin-top: 0;
+}
+
+.data-table {
+    font-size: 14px;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table th,
+.data-table td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.data-table td {
+    vertical-align: middle;
+}
+
+.data-table th {
+    background: #cbe8f7;
+    font-weight: 600;
+}
+
+.data-table tr:hover {
+    background: #f5f7f9;
+    
+}
+
+.container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.card {
+    border: 1px solid #e5e7eb;
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.btn {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-right: 6px;
+    color: rgb(0, 0, 0);
+    font-weight: 500;
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-open {
+    background: rgb(117, 117, 211);
+}
+.btn-open:hover {
+    background: rgb(85, 85, 211);
+}
+
+.btn-edit {
+    background: rgb(223, 189, 126);
+}
+.btn-edit:hover {
+    background: rgb(190, 145, 70);
+}
+
+.btn-delete {
+    background-color: rgb(230, 80, 80);
+}
+.btn-delete:hover {
+    background-color: rgb(168, 36, 36);
+}
+
+.btn-create {
+    background: #86d6a0;
+}
+.btn-create:hover {
+    background: #60bd80;
+}
+
+.btn-save {
+    background: #93c5fd;
+}
+
+.btn-save:hover {
+    background: #60a5fa;
+}
+
+.btn-cancel {
+    background: #d1d5db;
+}
+
+.btn-cancel:hover {
+    background: #9ca3af;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.forms-row {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.form-card {
+    width: 590px;
+    min-width: 100px;
+    box-sizing: border-box;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}

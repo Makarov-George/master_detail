@@ -1,0 +1,27 @@
+backend/src/main/resources/application.properties
+# Java / Maven
+backend/target/
+*.class
+
+# Angular / Node.js
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+frontend/coverage/
+frontend/.vscode/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# System
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Environment
+.env
+.env.*

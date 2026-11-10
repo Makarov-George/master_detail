@@ -1,0 +1,53 @@
+### Получить все документы
+GET http://localhost:8080/api/masters
+
+### Создать новый документ
+POST http://localhost:8080/api/masters
+Content-Type: application/json
+
+{
+    "number" : 105,
+    "date" : "2026-11-06",
+    "note" : "Test document"
+}
+
+### Проверка валидации
+POST http://localhost:8080/api/masters
+Content-Type: application/json
+
+{
+  "number": 999,
+  "date": "2026-11-07",
+  "note": "Test delete"
+}
+
+### Обновить документ
+PUT http://localhost:8080/api/masters/1
+Content-Type: application/json
+
+{
+  "number": 110,
+  "date": "2026-11-06",
+  "note": "Updated  document with same number"
+}
+
+### Удаление
+DELETE http://localhost:8080/api/masters/5/details/5
+
+### Создать спецификацию
+POST http://localhost:8080/api/masters/5/details
+Content-Type: application/json
+
+{
+  "name": "Test",
+  "totalDet": 1500
+}
+
+### Обновить спецификацию
+PUT http://localhost:8080/api/masters/4/details/3
+Content-Type: application/json
+
+{
+  "name" : "Monitor Samsung",
+  "totalDet" : 20000
+}
